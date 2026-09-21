@@ -265,21 +265,24 @@ h1,h2,h3,p{margin:0}
 .s19 .band .q{font-size:calc(44*var(--u));color:var(--cream);line-height:1.22;font-weight:400}
 .s19 .band .q b{font-weight:600;color:var(--yellow)}
 
-/* ---------- 20 ---------- */
-.s20{background:radial-gradient(ellipse at 50% 45%,#FFD75E 0%,var(--yellow) 60%,#F5B800 100%)}
-.s20 .body{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:calc(60*var(--u));top:calc(150*var(--u))}
-.s20 .q{font-size:calc(118*var(--u));line-height:1.14;color:var(--green-d);max-width:calc(1500*var(--u));text-wrap:balance}
-.s20 .pa{display:block}.s20 .pb{display:none}
-.s20.alt .pa{display:none}.s20.alt .pb{display:block}
-.s20 .song{font:600 calc(30*var(--u))/1 'Barlow',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--green-d);opacity:.8}
+/* ---------- 20 (vídeo) ---------- */
+.s20 .kick{position:absolute;left:calc(120*var(--u));top:calc(176*var(--u));font-size:calc(26*var(--u))}
 
-.s20 .listen{display:inline-flex;align-items:center;gap:calc(22*var(--u));background:var(--green-d);color:#fff;border:0;font:700 calc(32*var(--u))/1 'Barlow','Helvetica Neue',Arial,sans-serif;letter-spacing:.06em;padding:calc(24*var(--u)) calc(48*var(--u));border-radius:99px;box-shadow:0 calc(10*var(--u)) calc(28*var(--u)) rgba(8,64,41,.28);cursor:pointer;transition:transform .15s,background .2s}
-.s20 .listen:hover{transform:scale(1.04);background:#073322}
-.s20 .listen .ic-play{display:inline-block;border-left:calc(24*var(--u)) solid var(--yellow);border-top:calc(15*var(--u)) solid transparent;border-bottom:calc(15*var(--u)) solid transparent}
-.s20 .listen .ic-pause{display:none;width:calc(20*var(--u));height:calc(26*var(--u));border-left:calc(7*var(--u)) solid var(--yellow);border-right:calc(7*var(--u)) solid var(--yellow)}
-.s20 .listen.playing .ic-play{display:none}
-.s20 .listen.playing .ic-pause{display:inline-block}
-.s20 .listen:focus-visible{outline:calc(4*var(--u)) solid #fff;outline-offset:calc(4*var(--u))}
+/* ---------- 21 (frase final) ---------- */
+.s21{background:radial-gradient(ellipse at 50% 45%,#FFD75E 0%,var(--yellow) 60%,#F5B800 100%)}
+.s21 .body{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:calc(60*var(--u));top:calc(150*var(--u))}
+.s21 .q{font-size:calc(118*var(--u));line-height:1.14;color:var(--green-d);max-width:calc(1500*var(--u));text-wrap:balance}
+.s21 .pa{display:block}.s21 .pb{display:none}
+.s21.alt .pa{display:none}.s21.alt .pb{display:block}
+.s21 .song{font:600 calc(30*var(--u))/1 'Barlow',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--green-d);opacity:.8}
+
+.s21 .listen{display:inline-flex;align-items:center;gap:calc(22*var(--u));background:var(--green-d);color:#fff;border:0;font:700 calc(32*var(--u))/1 'Barlow','Helvetica Neue',Arial,sans-serif;letter-spacing:.06em;padding:calc(24*var(--u)) calc(48*var(--u));border-radius:99px;box-shadow:0 calc(10*var(--u)) calc(28*var(--u)) rgba(8,64,41,.28);cursor:pointer;transition:transform .15s,background .2s}
+.s21 .listen:hover{transform:scale(1.04);background:#073322}
+.s21 .listen .ic-play{display:inline-block;border-left:calc(24*var(--u)) solid var(--yellow);border-top:calc(15*var(--u)) solid transparent;border-bottom:calc(15*var(--u)) solid transparent}
+.s21 .listen .ic-pause{display:none;width:calc(20*var(--u));height:calc(26*var(--u));border-left:calc(7*var(--u)) solid var(--yellow);border-right:calc(7*var(--u)) solid var(--yellow)}
+.s21 .listen.playing .ic-play{display:none}
+.s21 .listen.playing .ic-pause{display:inline-block}
+.s21 .listen:focus-visible{outline:calc(4*var(--u)) solid #fff;outline-offset:calc(4*var(--u))}
 .yt-audio-frame{position:absolute;width:1px;height:1px;left:-9999px;opacity:0;pointer-events:none}
 
 /* ---------- player ---------- */
@@ -629,7 +632,16 @@ html:not(.js) .bar,html:not(.js) .prog{display:none}
 </section>
 
 <!-- 20 -->
-<section class="slide s20" data-n="20" data-alt="1">
+<section class="slide s20 bgm" data-n="20">
+  <div class="top"><div class="logo"></div><div class="tag">Setembro Amarelo</div></div>
+  <div class="kick">Reflexão · Cuidar de você</div>
+  <div class="vid" id="vid20">
+    <iframe id="ytVideo20" src="https://www.youtube.com/embed/NGMONxPzTpc?enablejsapi=1&rel=0&modestbranding=1" title="Vídeo de reflexão" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+</section>
+
+<!-- 21 -->
+<section class="slide s21" data-n="21" data-alt="1">
   <div class="top"><div class="logo"></div></div>
   <div class="body">
     <p class="q pa">Cuidar de você também é uma forma de cuidar de quem você ama.</p>
@@ -648,7 +660,7 @@ html:not(.js) .bar,html:not(.js) .prog{display:none}
 
 <div class="bar" id="bar">
   <button id="prev" type="button" aria-label="Slide anterior">◀</button>
-  <span class="c" id="cnt">1 / 20</span>
+  <span class="c" id="cnt">1 / 21</span>
   <button id="next" type="button" aria-label="Próximo slide">▶</button>
   <button id="alt" type="button" title="Alternar a frase final (tecla A)">Frase alternativa</button>
   <button id="fs" type="button" title="Tela cheia (tecla F)">⛶</button>
@@ -667,7 +679,8 @@ html:not(.js) .bar,html:not(.js) .prog{display:none}
     prog.style.width=((i+1)/n*100)+'%';
     alt.style.display=slides[i].getAttribute('data-alt')?'inline-block':'none';
     if(i !== 6) { pauseYtVideo(); }
-    if(i !== 19) { stopAudioMusic(); }
+    if(i !== 19) { pauseYtVideo20(); }
+    if(i !== 20) { stopAudioMusic(); }
     try{history.replaceState(null,'','#'+(i+1))}catch(e){}
   }
   function typing(t){return t&&(t.isContentEditable||/^(INPUT|TEXTAREA|VIDEO|BUTTON|A)$/.test(t.tagName))}
@@ -700,6 +713,14 @@ html:not(.js) .bar,html:not(.js) .prog{display:none}
   function pauseYtVideo(){
     if(ytFrame && ytFrame.contentWindow){
       ytFrame.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+    }
+  }
+
+  // controle do vídeo YouTube (slide 20)
+  var ytFrame20 = document.getElementById('ytVideo20');
+  function pauseYtVideo20(){
+    if(ytFrame20 && ytFrame20.contentWindow){
+      ytFrame20.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
     }
   }
 
