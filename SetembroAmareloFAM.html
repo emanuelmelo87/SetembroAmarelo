@@ -273,9 +273,14 @@ h1,h2,h3,p{margin:0}
 .s20.alt .pa{display:none}.s20.alt .pb{display:block}
 .s20 .song{font:600 calc(30*var(--u))/1 'Barlow',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--green-d);opacity:.8}
 
-.s20 .listen{display:inline-flex;align-items:center;gap:calc(22*var(--u));background:var(--green-d);color:#fff;text-decoration:none;font:700 calc(32*var(--u))/1 'Barlow','Helvetica Neue',Arial,sans-serif;letter-spacing:.06em;padding:calc(24*var(--u)) calc(48*var(--u));border-radius:99px;box-shadow:0 calc(10*var(--u)) calc(28*var(--u)) rgba(8,64,41,.28)}
-.s20 .listen::before{content:"";border-left:calc(24*var(--u)) solid var(--yellow);border-top:calc(15*var(--u)) solid transparent;border-bottom:calc(15*var(--u)) solid transparent}
+.s20 .listen{display:inline-flex;align-items:center;gap:calc(22*var(--u));background:var(--green-d);color:#fff;border:0;font:700 calc(32*var(--u))/1 'Barlow','Helvetica Neue',Arial,sans-serif;letter-spacing:.06em;padding:calc(24*var(--u)) calc(48*var(--u));border-radius:99px;box-shadow:0 calc(10*var(--u)) calc(28*var(--u)) rgba(8,64,41,.28);cursor:pointer;transition:transform .15s,background .2s}
+.s20 .listen:hover{transform:scale(1.04);background:#073322}
+.s20 .listen .ic-play{display:inline-block;border-left:calc(24*var(--u)) solid var(--yellow);border-top:calc(15*var(--u)) solid transparent;border-bottom:calc(15*var(--u)) solid transparent}
+.s20 .listen .ic-pause{display:none;width:calc(20*var(--u));height:calc(26*var(--u));border-left:calc(7*var(--u)) solid var(--yellow);border-right:calc(7*var(--u)) solid var(--yellow)}
+.s20 .listen.playing .ic-play{display:none}
+.s20 .listen.playing .ic-pause{display:inline-block}
 .s20 .listen:focus-visible{outline:calc(4*var(--u)) solid #fff;outline-offset:calc(4*var(--u))}
+.yt-audio-frame{position:absolute;width:1px;height:1px;left:-9999px;opacity:0;pointer-events:none}
 
 /* ---------- player ---------- */
 .bar{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;align-items:center;gap:6px;background:var(--bar);color:var(--bar-t);border-radius:99px;padding:6px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:50;transition:opacity .4s}
@@ -630,7 +635,11 @@ html:not(.js) .bar,html:not(.js) .prog{display:none}
     <p class="q pa">Cuidar de você também é uma forma de cuidar de quem você ama.</p>
     <p class="q pb">Coloque a sua máscara. ✈️</p>
     <p class="song">♪ É Preciso Saber Viver</p>
-    <a class="listen" href="https://www.youtube.com/watch?v=Twwe1x3aKAY" target="_blank" rel="noopener noreferrer">Ouvir a música</a>
+    <button class="listen" id="musicBtn" type="button">
+      <span class="ic-play"></span><span class="ic-pause"></span>
+      <span id="musicTxt">Tocar música</span>
+    </button>
+    <iframe id="audioFrame" class="yt-audio-frame" src="https://www.youtube.com/embed/Twwe1x3aKAY?enablejsapi=1&rel=0" title="Audio: É Preciso Saber Viver" allow="autoplay"></iframe>
   </div>
 </section>
 
@@ -658,6 +667,7 @@ html:not(.js) .bar,html:not(.js) .prog{display:none}
     prog.style.width=((i+1)/n*100)+'%';
     alt.style.display=slides[i].getAttribute('data-alt')?'inline-block':'none';
     if(i !== 6) { pauseYtVideo(); }
+    if(i !== 19) { stopAudioMusic(); }
     try{history.replaceState(null,'','#'+(i+1))}catch(e){}
   }
   function typing(t){return t&&(t.isContentEditable||/^(INPUT|TEXTAREA|VIDEO|BUTTON|A)$/.test(t.tagName))}
@@ -691,6 +701,50 @@ html:not(.js) .bar,html:not(.js) .prog{display:none}
     if(ytFrame && ytFrame.contentWindow){
       ytFrame.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
     }
+  }
+
+  // controle de áudio da música (slide 20)
+  var audioFrame = document.getElementById('audioFrame');
+  var musicBtn = document.getElementById('musicBtn');
+  var musicTxt = document.getElementById('musicTxt');
+  var isMusicPlaying = false;
+
+  function playAudioMusic(){
+    if(audioFrame && audioFrame.contentWindow){
+      audioFrame.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+      isMusicPlaying = true;
+      if(musicBtn){
+        musicBtn.classList.add('playing');
+        musicTxt.textContent = 'Pausar música';
+      }
+    }
+  }
+
+  function pauseAudioMusic(){
+    if(audioFrame && audioFrame.contentWindow){
+      audioFrame.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+      isMusicPlaying = false;
+      if(musicBtn){
+        musicBtn.classList.remove('playing');
+        musicTxt.textContent = 'Tocar música';
+      }
+    }
+  }
+
+  function stopAudioMusic(){
+    if(isMusicPlaying){
+      pauseAudioMusic();
+    }
+  }
+
+  if(musicBtn){
+    musicBtn.onclick = function(){
+      if(isMusicPlaying){
+        pauseAudioMusic();
+      } else {
+        playAudioMusic();
+      }
+    };
   }
   var h=parseInt((location.hash||'').replace('#',''),10);
   go(h>=1&&h<=n?h-1:0);
